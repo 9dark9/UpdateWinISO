@@ -1,14 +1,14 @@
-name: Windows10_LTSC2019_amd64
+name: LTSC2019-17763
 
 on: workflow_dispatch
 #on: [push, pull_request]
 
 env:
-  Build_VERSION: '17763.8389'
-  FILE_NAME: Windows10_LTSC2019_amd64
+  Build_VERSION: '17763'
+  FILE_NAME: LTSC2019
 
 jobs:
-  Windows10_LTSC2019_amd64:
+  LTSC2019-17763:
     runs-on: windows-latest
 
     steps:
@@ -34,10 +34,9 @@ jobs:
         cd Win_ISO_Patching_Scripts
         
         # 下载镜像
-        curl -L -o cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.001 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows10ISO/cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.001
-        curl -L -o cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.002 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows10ISO/cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.002
-        curl -L -o cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.003 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows10ISO/cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.003
-        7z x cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.001
+        curl -L -o LTSC2019-17763.7z.001 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows10ISO/cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.001
+        curl -L -o LTSC2019-17763.7z.002 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows10ISO/cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.7z.002
+        7z x LTSC2019-17763.7z.001
         ls
 
     # 集成更新
@@ -45,7 +44,7 @@ jobs:
       shell: cmd
       run: |
         :: (可选)替换预设文件W10UI.ini
-        :: copy D:\a\UpdateWinISO\UpdateWinISO\myini\W10UI.ini D:\a\UpdateWinISO\Win_ISO_Patching_Scripts\W10UI.ini /Y
+        copy D:\a\UpdateWinISO\UpdateWinISO\myini\W10UI.ini D:\a\UpdateWinISO\Win_ISO_Patching_Scripts\W10UI.ini /Y
 
         :: 替换W10UI.cmd
         copy D:\a\UpdateWinISO\UpdateWinISO\mycmd\W10UI.cmd D:\a\UpdateWinISO\Win_ISO_Patching_Scripts\W10UI.cmd /Y
@@ -62,7 +61,7 @@ jobs:
       run: |
         cd /d D:\a\UpdateWinISO\Win_ISO_Patching_Scripts
         dir
-        del /F /S /Q cn_windows_10_enterprise_ltsc_2019_x64_dvd_9c09ff24.iso
+        del /F /S /Q LTSC2019-17763.iso
         dir
 
     # 打包
