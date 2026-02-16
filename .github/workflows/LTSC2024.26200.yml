@@ -61,7 +61,7 @@ jobs:
       run: |
         cd /d D:\a\UpdateWinISO\Win_ISO_Patching_Scripts
         dir
-        del /F /S /Q LTSC2024-26200.iso
+        del /F /S /Q LTSC2024.26200.iso
         dir
 
     # 打包
