@@ -1,14 +1,14 @@
-name: Windows11_LTSC2024_amd64
+name: LTSC2024-26200
 
 on: workflow_dispatch
 #on: [push, pull_request]
 
 env:
-  Build_VERSION: '26200.7840'
-  FILE_NAME: Windows11_LTSC2024_amd64
+  Build_VERSION: '26200'
+  FILE_NAME: LTSC2024
 
 jobs:
-  Windows11_LTSC2024_amd64:
+  LTSC2024-26100:
     runs-on: windows-latest
 
     steps:
@@ -34,10 +34,10 @@ jobs:
         cd Win_ISO_Patching_Scripts
         
         # 下载镜像
-        curl -L -o zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.001 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows11ISO/zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.001
-        curl -L -o zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.002 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows11ISO/zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.002
-        curl -L -o zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.003 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows11ISO/zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.003
-        7z x zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.001
+        curl -L -o LTSC2024-26200.7z.001 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows11ISO/zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.001
+        curl -L -o LTSC2024-26200.7z.002 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows11ISO/zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.002
+        curl -L -o LTSC2024-26200.7z.003 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows11ISO/zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.7z.003
+        7z x LTSC2024-26200.7z.001
         ls
 
     # 集成更新
@@ -62,7 +62,7 @@ jobs:
       run: |
         cd /d D:\a\UpdateWinISO\Win_ISO_Patching_Scripts
         dir
-        del /F /S /Q zh-cn_windows_11_enterprise_ltsc_2024_x64_dvd_cff9cd2d.iso
+        del /F /S /Q LTSC2024-26200.iso
         dir
 
     # 打包
