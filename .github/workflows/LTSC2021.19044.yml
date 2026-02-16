@@ -1,14 +1,14 @@
-name: Windows10_LTSC2021_amd64
+name: LTSC2021.19044
 
 on: workflow_dispatch
 #on: [push, pull_request]
 
 env:
-  Build_VERSION: '19044.6937'
-  FILE_NAME: Windows10_LTSC2021_amd64
+  Build_VERSION: '19044'
+  FILE_NAME: LTSC2021
 
 jobs:
-  Windows10_LTSC2021_amd64:
+  LTSC2021.19044:
     runs-on: windows-latest
 
     steps:
@@ -34,10 +34,10 @@ jobs:
         cd Win_ISO_Patching_Scripts
         
         # 下载镜像
-        curl -L -o zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.7z.001 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows10ISO/zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.7z.001
-        curl -L -o zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.7z.002 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows10ISO/zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.7z.002
-        curl -L -o zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.7z.003 https://github.com/yuanpeirong/UpdateWinISO/releases/download/Windows10ISO/zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.7z.003
-        7z x zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.7z.001
+        curl -L -o LTSC2021-19044.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/Windows10ISO/LTSC2021-19044.7z.001
+        curl -L -o LTSC2021-19044.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/Windows10ISO/LTSC2021-19044.7z.002
+        curl -L -o LTSC2021-19044.7z.003 https://github.com/9dark9/UpdateWinISO/releases/download/Windows10ISO/LTSC2021-19044.7z.003
+        7z x LTSC2021-19044.7z.001
         ls
 
     # 集成更新
@@ -45,7 +45,7 @@ jobs:
       shell: cmd
       run: |
         :: (可选)替换预设文件W10UI.ini
-        :: copy D:\a\UpdateWinISO\UpdateWinISO\myini\W10UI.ini D:\a\UpdateWinISO\Win_ISO_Patching_Scripts\W10UI.ini /Y
+        copy D:\a\UpdateWinISO\UpdateWinISO\myini\W10UI.ini D:\a\UpdateWinISO\Win_ISO_Patching_Scripts\W10UI.ini /Y
 
         :: 替换W10UI.cmd
         copy D:\a\UpdateWinISO\UpdateWinISO\mycmd\W10UI.cmd D:\a\UpdateWinISO\Win_ISO_Patching_Scripts\W10UI.cmd /Y
@@ -62,7 +62,7 @@ jobs:
       run: |
         cd /d D:\a\UpdateWinISO\Win_ISO_Patching_Scripts
         dir
-        del /F /S /Q zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.iso
+        del /F /S /Q LTSC2021-19044.iso
         dir
 
     # 打包
