@@ -5,7 +5,7 @@ on: workflow_dispatch
 
 env:
   UpdatePack7R2_VERSION: '26.1.15'
-  FILE_NAME: install
+  FILE_NAME: install_U
 
 jobs:
   Windows7x64ALL_UpdatePack7R2:
@@ -29,9 +29,9 @@ jobs:
         # curl -L -o dotNetFx48_20251014_x64.wa https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/dotNetFx48_20251014_x64.wa
 
         # 下载Windows7x64ALL.wim镜像
-        curl -L -o install_U.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install_U.7z.001
-        curl -L -o install_U.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install_U.7z.002
-        7z x install_U.7z.001
+        curl -L -o ${{env.FILE_NAME}}.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install_U.7z.001
+        curl -L -o ${{env.FILE_NAME}}.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install_U.7z.002
+        7z x ${{env.FILE_NAME}}.7z.001
         ls
 
     # 使用UpdatePack7R2.exe集成更新
