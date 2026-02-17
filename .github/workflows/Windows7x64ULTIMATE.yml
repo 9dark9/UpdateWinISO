@@ -1,14 +1,14 @@
-name: Windows7x64ULTIMATE
+name: Windows7-Ultimate
 
 on: workflow_dispatch
 #on: [push, pull_request]
 
 env:
   UpdatePack7R2_VERSION: '26.1.15'
-  FILE_NAME: install_U
+  FILE_NAME: install
 
 jobs:
-  Windows7x64ALL_UpdatePack7R2:
+  Windows7-Ultimate-UpdatePack7R2:
     runs-on: windows-latest
 
     steps:
@@ -17,20 +17,20 @@ jobs:
     - name: Get Tools and Wim
       shell: pwsh
       run: |
-        #ls     #Directory: D:\a\UpdatePack7R2\UpdatePack7R2(即仓库目录)
-        #D:\a\UpdatePack7R2                                上级目录，这里当做根目录
+        #ls     #Directory: D:\a\UpdateWinISO\UpdatePack7R2(即仓库目录)
+        #D:\a\UpdateWinISO                                上级目录，这里当做根目录
         
-        cd ..  #Directory: D:\a\UpdatePack7R2
+        cd ..  #Directory: D:\a\UpdateWinISO
 
         # 下载UpdatePack7R2
         curl -L -o UpdatePack7R2.exe https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/UpdatePack7R2-26.1.15.exe
         curl -L -o DirectX_June2010_x64.WA https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/DirectX_June2010_x64.WA
         curl -L -o vcredist_x64_Win7_20250708.WA https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/vcredist_x64_Win7_20250708.WA
-        # curl -L -o dotNetFx48_20251014_x64.wa https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/dotNetFx48_20251014_x64.wa
+        curl -L -o dotNetFx48_20251014_x64.wa https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/dotNetFx48_20251014_x64.wa
 
-        # 下载Windows7x64ALL.wim镜像
-        curl -L -o ${{env.FILE_NAME}}.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install_U.7z.001
-        curl -L -o ${{env.FILE_NAME}}.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install_U.7z.002
+        # 下载Windows7.wim镜像
+        curl -L -o ${{env.FILE_NAME}}.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install.7z.001
+        curl -L -o ${{env.FILE_NAME}}.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install.7z.002
         7z x ${{env.FILE_NAME}}.7z.001
         ls
 
@@ -43,7 +43,7 @@ jobs:
     # 打包
     - name: Package binaries
       run: |
-        #ls     #Directory: D:\a\UpdatePack7R2\UpdatePack7R2(即仓库目录)
+        #ls     #Directory: D:\a\UpdateWinISO\UpdatePack7R2(即仓库目录)
         7z a -v1950M ${{env.FILE_NAME}}-${{env.UpdatePack7R2_VERSION}}.7z ../${{env.FILE_NAME}}.wim -mx=9
         7z a UpdatePack7log.7z C:\WINDOWS\UpdatePack7.log
 
