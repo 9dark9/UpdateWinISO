@@ -38,7 +38,7 @@ jobs:
     - name: UpdatePack7R2 Wim
       shell: cmd
       run: |
-        D:\a\UpdatePack7R2\UpdatePack7R2.exe /WimFile=D:\a\UpdatePack7R2\install_U.wim /NoUSB /Optimize
+        D:\a\UpdatePack7R2\UpdatePack7R2.exe /WimFile=D:\a\UpdateWinISO\install_U.wim /NoUSB /Optimize
 
     # 打包
     - name: Package binaries
