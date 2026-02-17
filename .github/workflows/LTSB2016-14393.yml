@@ -34,8 +34,8 @@ jobs:
         cd Win_ISO_Patching_Scripts
         
         # 下载镜像
-        curl -L -o LTSB2016-14393.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/LTSB2016-14393/LTSB2016-14393.7z.001
-        curl -L -o LTSB2016-14393.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/LTSB2016-14393/LTSB2016-14393.7z.002
+        curl -L -o LTSB2016-14393.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/LTSB2016/LTSB2016-14393.7z.001
+        curl -L -o LTSB2016-14393.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/LTSB2016/LTSB2016-14393.7z.002
         7z x LTSB2016-14393.7z.001
         ls
 
