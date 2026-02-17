@@ -26,7 +26,7 @@ jobs:
         curl -L -o UpdatePack7R2.exe https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/UpdatePack7R2-26.1.15.exe
         curl -L -o DirectX_June2010_x64.WA https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/DirectX_June2010_x64.WA
         curl -L -o vcredist_x64_Win7_20250708.WA https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/vcredist_x64_Win7_20250708.WA
-        :: curl -L -o dotNetFx48_20251014_x64.wa https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/dotNetFx48_20251014_x64.wa
+        # curl -L -o dotNetFx48_20251014_x64.wa https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/dotNetFx48_20251014_x64.wa
 
         # 下载Windows7x64ALL.wim镜像
         curl -L -o install_U.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/UpdatePack7R2/install_U.7z.001
