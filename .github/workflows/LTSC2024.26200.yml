@@ -1,4 +1,4 @@
-name: LTSC2024-26200
+name: LTSC2024.26200
 
 on: workflow_dispatch
 #on: [push, pull_request]
@@ -34,9 +34,9 @@ jobs:
         cd Win_ISO_Patching_Scripts
         
         # 下载镜像
-        curl -L -o LTSC2024-26200.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2024/LTSC2024-26200.7z.001
-        curl -L -o LTSC2024-26200.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2024/LTSC2024-26200.7z.002
-        7z x LTSC2024-26200.7z.001
+        curl -L -o LTSC2024.26200.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2024/LTSC2024.26200.7z.001
+        curl -L -o LTSC2024.26200.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2024/LTSC2024.26200.7z.002
+        7z x LTSC2024.26200.7z.001
         ls
 
     # 集成更新
