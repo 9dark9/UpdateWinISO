@@ -8,7 +8,7 @@ env:
   FILE_NAME: LTSC2019
 
 jobs:
-  LTSC2019.17763:
+  LTSC2019-17763:
     runs-on: windows-latest
 
     steps:
