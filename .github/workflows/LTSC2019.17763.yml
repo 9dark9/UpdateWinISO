@@ -1,4 +1,4 @@
-name: LTSC2019-17763
+name: LTSC2019.17763
 
 on: workflow_dispatch
 #on: [push, pull_request]
@@ -36,7 +36,7 @@ jobs:
         # 下载镜像
         curl -L -o LTSC2019.17763.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2019/LTSC2019.17763.7z.001
         curl -L -o LTSC2019.17763.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2019/LTSC2019.17763.7z.002
-        7z x LTSC2019-17763.7z.001
+        7z x LTSC2019.17763.7z.001
         ls
 
     # 集成更新
