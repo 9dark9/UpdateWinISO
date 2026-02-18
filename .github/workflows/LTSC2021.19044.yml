@@ -8,7 +8,7 @@ env:
   FILE_NAME: LTSC2021
 
 jobs:
-  LTSC2021.19044:
+  LTSC2021-19044:
     runs-on: windows-latest
 
     steps:
