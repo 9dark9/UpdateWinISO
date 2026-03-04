@@ -8,6 +8,9 @@ on:
 jobs:
   cleanup:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write  # 允许删除 workflow runs
+      contents: read  # 允许检出仓库（可选，本脚本其实不需要）
     env:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
