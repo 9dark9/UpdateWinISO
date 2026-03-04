@@ -22,17 +22,29 @@ jobs:
       - name: Fetch recent workflow runs
         run: |
           echo 'Fetching workflow runs...'
-          curl -s -H "Authorization: token $GH_TOKEN" \
-            https://api.github.com/repos/${{ github.repository }}/actions/runs?per_page=50 \
-            > runs.json
+          # 捕获curl请求的HTTP状态码，校验API请求是否成功
+          response_code=$(curl -s -o runs.json -w "%{http_code}" -H "Authorization: token $GH_TOKEN" \
+            https://api.github.com/repos/${{ github.repository }}/actions/runs?per_page=50)
+          echo "API Response Code: $response_code"
+          if [ "$response_code" -ne 200 ]; then
+              echo $'\u274c Failed to fetch workflow runs, HTTP status: '"$response_code"
+              cat runs.json  # 打印错误信息便于排查
+              exit 1
+          fi
           echo "Saved workflow runs to runs.json"
 
       - name: Delete short and completed workflow runs (<10 minutes)
         run: |
           echo 'Deleting completed workflow runs with duration < 10 minutes...'
           
-          # 提取 运行ID、状态、开始时间、结束时间（只处理已完成的）
-          jq -r '.workflow_runs[] | select(.status=="completed") | "\(.id) \(.run_started_at) \(.updated_at)"' runs.json > runs_times.txt
+          # 前置校验：检查.workflow_runs是否存在且非null，避免jq遍历报错
+          if ! jq -e '.workflow_runs' runs.json > /dev/null 2>&1; then
+              echo $'\u26A0\ufe0f No workflow runs found (field is null/missing), cleanup skipped'
+              exit 0
+          fi
+          
+          # 提取数据：添加[]?兼容null场景，只处理已完成的运行记录
+          jq -r '.workflow_runs[]? | select(.status=="completed") | "\(.id) \(.run_started_at) \(.updated_at)"' runs.json > runs_times.txt
           
           threshold=600  # 10 minutes in seconds
           
@@ -42,7 +54,7 @@ jobs:
                   continue
               fi
               
-              # 转换为时间戳
+              # 转换为时间戳，并重定向错误输出避免干扰
               start_ts=$(date -d "$start_time" +%s 2>/dev/null)
               end_ts=$(date -d "$end_time" +%s 2>/dev/null)
               
@@ -56,7 +68,7 @@ jobs:
               
               if [ $duration -lt $threshold ]; then
                   echo $'\u26A0\ufe0f Workflow run '"$run_id"' duration '"$duration"' seconds < '"$threshold"', deleting...'
-                  # 发送删除请求并输出结果
+                  # 发送删除请求并捕获HTTP状态码
                   response=$(curl -s -o /dev/null -w "%{http_code}" -X DELETE -H "Authorization: token $GH_TOKEN" \
                     "https://api.github.com/repos/${{ github.repository }}/actions/runs/$run_id")
                   if [ "$response" = "204" ]; then
