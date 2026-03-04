@@ -3,7 +3,7 @@ name: Cleanup Short Workflow Runs
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 */3 * * *'  # Run every 3.5 hours
+    - cron: '30 */3 * * *'  # Run every 3 hours at 30 minutes past the hour
 
 jobs:
   cleanup:
@@ -27,28 +27,44 @@ jobs:
             > runs.json
           echo "Saved workflow runs to runs.json"
 
-      - name: Delete short workflow runs (<10 minutes)
+      - name: Delete short and completed workflow runs (<10 minutes)
         run: |
-          echo 'Deleting workflow runs with duration < 10 minutes...'
+          echo 'Deleting completed workflow runs with duration < 10 minutes...'
           
-          # Extract run ID, start time, end time
-          jq -r '.workflow_runs[] | "\(.id) \(.run_started_at) \(.updated_at)"' runs.json > runs_times.txt
+          # 提取 运行ID、状态、开始时间、结束时间（只处理已完成的）
+          jq -r '.workflow_runs[] | select(.status=="completed") | "\(.id) \(.run_started_at) \(.updated_at)"' runs.json > runs_times.txt
           
           threshold=600  # 10 minutes in seconds
           
           while read run_id start_time end_time; do
-              # Convert to Unix timestamps
-              start_ts=$(date -d "$start_time" +%s)
-              end_ts=$(date -d "$end_time" +%s)
+              # 跳过空行
+              if [ -z "$run_id" ]; then
+                  continue
+              fi
+              
+              # 转换为时间戳
+              start_ts=$(date -d "$start_time" +%s 2>/dev/null)
+              end_ts=$(date -d "$end_time" +%s 2>/dev/null)
+              
+              # 处理时间转换失败的情况
+              if [ -z "$start_ts" ] || [ -z "$end_ts" ]; then
+                  echo $'\u274c Workflow run '"$run_id"' time conversion failed, skip'
+                  continue
+              fi
+              
               duration=$((end_ts - start_ts))
               
               if [ $duration -lt $threshold ]; then
-                  # ⚠️ Warning for short run
                   echo $'\u26A0\ufe0f Workflow run '"$run_id"' duration '"$duration"' seconds < '"$threshold"', deleting...'
-                  curl -s -X DELETE -H "Authorization: token $GH_TOKEN" \
-                    "https://api.github.com/repos/${{ github.repository }}/actions/runs/$run_id"
+                  # 发送删除请求并输出结果
+                  response=$(curl -s -o /dev/null -w "%{http_code}" -X DELETE -H "Authorization: token $GH_TOKEN" \
+                    "https://api.github.com/repos/${{ github.repository }}/actions/runs/$run_id")
+                  if [ "$response" = "204" ]; then
+                      echo $'\u2705 Deleted workflow run '"$run_id"' successfully'
+                  else
+                      echo $'\u274c Failed to delete workflow run '"$run_id"', HTTP status: '"$response"
+                  fi
               else
-                  # ✅ Keep run
                   echo $'\u2705 Workflow run '"$run_id"' duration '"$duration"' seconds, keep'
               fi
           done < runs_times.txt
