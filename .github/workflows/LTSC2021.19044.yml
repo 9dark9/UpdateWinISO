@@ -68,7 +68,7 @@ jobs:
     - name: Package binaries
       run: |
         #ls     #Directory: D:\a\UpdateWinISO\UpdateWinISO(即仓库目录)
-        7z a -v1950M ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z ../Win_ISO_Patching_Scripts/*.iso -mx=9
+        7z a -v2000M ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z ../Win_ISO_Patching_Scripts/*.iso -mx=9
 
     # 上传镜像
     - uses: actions/upload-artifact@v4
