@@ -3522,9 +3522,11 @@ echo ERROR: Could not mount or unmount WIM image
 echo ============================================================
 if %_Debug% neq 0 goto :EndDebug
 echo.
-echo Press 9 or q to exit.
-choice /c 9Q /n
-if errorlevel 1 (exit) else (rem.)
+:: 此处与原文件不同，以下注释3行，增加1行
+:: echo Press 9 or q to exit.
+:: choice /c 9Q /n
+:: if errorlevel 1 (exit) else (rem.)
+exit
 
 :E_Admin
 echo %_err%
@@ -3913,9 +3915,11 @@ if %_embd% neq 0 goto :eof
 :: if %autostart% neq 0 goto :eof
 if %_Debug% neq 0 goto :eof
 echo.
-echo Press 9 or q to exit.
-choice /c 9Q /n
-if errorlevel 1 (goto :eof) else (rem.)
+:: 此处与原文件不同，以下注释3行，增加1行
+:: echo Press 9 or q to exit.
+:: choice /c 9Q /n
+:: if errorlevel 1 (goto :eof) else (rem.)
+goto :eof
 
 $:DIR2ISO: #,# [PARAMS] directory file.iso
 set ^ #=& set 1=%*& powershell -nop -c "$f0=[io.file]::ReadAllText('!_batp!');$0=($f0-split'\$%0:.*')[1];$1=$env:1-replace'([`@$])','`$1';iex(\"$0 `r`n %0 $1\")"& exit /b !errorlevel!
