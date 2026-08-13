@@ -1,14 +1,14 @@
-name: LTSC2024.26200
+name: LTSC2024_26100
 
 on: workflow_dispatch
 #on: [push, pull_request]
 
 env:
-  Build_VERSION: '26200'
+  Build_VERSION: '26100'
   FILE_NAME: LTSC2024
 
 jobs:
-  LTSC2024-26100:
+  LTSC2024_26100:
     runs-on: windows-latest
 
     steps:
@@ -34,9 +34,9 @@ jobs:
         cd Win_ISO_Patching_Scripts
         
         # 下载镜像
-        curl -L -o LTSC2024.26200.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2024/LTSC2024.26200.7z.001
-        curl -L -o LTSC2024.26200.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2024/LTSC2024.26200.7z.002
-        7z x LTSC2024.26200.7z.001
+        curl -L -o LTSC2024.26100.7z.001 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2024.26100/LTSC2024.26100.7z.001
+        curl -L -o LTSC2024.26100.7z.002 https://github.com/9dark9/UpdateWinISO/releases/download/LTSC2024.26100/LTSC2024.26100.7z.002
+        7z x LTSC2024.26100.7z.001
         ls
 
     # 集成更新
@@ -61,7 +61,7 @@ jobs:
       run: |
         cd /d D:\a\UpdateWinISO\Win_ISO_Patching_Scripts
         dir
-        del /F /S /Q LTSC2024.26200.iso
+        del /F /S /Q LTSC2024.26100.iso
         dir
 
     # 打包
