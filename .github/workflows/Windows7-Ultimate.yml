@@ -63,6 +63,6 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{env.FILE_NAME}}-${{env.UpdatePack7R2_VERSION}}
-        release_name: ${{env.FILE_NAME}}-${{env.UpdatePack7R2_VERSION}}
+        tag_name: Windows7-Ultimate-${{env.FILE_NAME}}-${{env.UpdatePack7R2_VERSION}}
+        release_name: Windows7-Ultimate-${{env.FILE_NAME}}-${{env.UpdatePack7R2_VERSION}}
         files: ${{env.FILE_NAME}}-${{env.UpdatePack7R2_VERSION}}.7z.*
