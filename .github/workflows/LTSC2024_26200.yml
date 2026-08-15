@@ -1,14 +1,14 @@
-name: LTSC2024_26100
+name: LTSC2024_26200
 
 on: workflow_dispatch
 #on: [push, pull_request]
 
 env:
-  Build_VERSION: '26100'
+  Build_VERSION: '26200'
   FILE_NAME: LTSC2024
 
 jobs:
-  LTSC2024_26100:
+  LTSC2024_26200:
     runs-on: windows-latest
 
     steps:
