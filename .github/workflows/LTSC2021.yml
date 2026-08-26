@@ -4,7 +4,7 @@ on: workflow_dispatch
 #on: [push, pull_request]
 
 env:
-  Build_VERSION: ''
+  Build_VERSION: 'ALL'
   FILE_NAME: LTSC2021
 
 jobs:
@@ -68,18 +68,18 @@ jobs:
     - name: Package binaries
       run: |
         #ls     #Directory: D:\a\UpdateWinISO\UpdateWinISO(即仓库目录)
-        7z a -v2000M ${{env.FILE_NAME}}.7z ../Win_ISO_Patching_Scripts/*.iso -mx=9
+        7z a -v2000M ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z ../Win_ISO_Patching_Scripts/*.iso -mx=9
 
     # 上传镜像
     - uses: actions/upload-artifact@v4
       with:
-        name: ${{env.FILE_NAME}}
-        path: ${{env.FILE_NAME}}.7z*
+        name: ${{env.FILE_NAME}}-${{env.Build_VERSION}}
+        path: ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z*
 
     # 发布镜像
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{env.FILE_NAME}}
-        release_name: ${{env.FILE_NAME}}
-        files: ${{env.FILE_NAME}}.7z*
+        tag_name: ${{env.FILE_NAME}}-${{env.Build_VERSION}}
+        release_name: ${{env.FILE_NAME}}-${{env.Build_VERSION}}
+        files: ${{env.FILE_NAME}}-${{env.Build_VERSION}}.7z*
