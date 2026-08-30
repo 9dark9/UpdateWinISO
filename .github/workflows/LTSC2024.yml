@@ -4,7 +4,7 @@ on: workflow_dispatch
 #on: [push, pull_request]
 
 env:
-  Build_VERSION: 'ALL'
+  Build_VERSION: '26300'
   FILE_NAME: LTSC2024
 
 jobs:
