@@ -1,4 +1,4 @@
-name: LTSB2016
+name: LTSB20161
 
 on: workflow_dispatch
 #on: [push, pull_request]
