@@ -1,4 +1,4 @@
-name: Windows7-Ultimate1
+name: Windows7-Ultimate
 
 on: workflow_dispatch
 #on: [push, pull_request]
