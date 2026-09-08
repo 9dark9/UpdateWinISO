@@ -1,4 +1,4 @@
-name: LTSC20191
+name: LTSC2019
 
 on: workflow_dispatch
 #on: [push, pull_request]
